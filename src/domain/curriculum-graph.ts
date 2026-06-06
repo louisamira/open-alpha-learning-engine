@@ -4,7 +4,8 @@ import { orientationEssaySchema } from "./orientation-essay.js";
 export const checkerKindSchema = z.enum([
   "algebra.expression_simplification",
   "chemistry.equation_balance",
-  "accounting.journal_entry"
+  "accounting.journal_entry",
+  "conceptual.exact_answer"
 ]);
 
 const checkerSpecBaseSchema = z.object({
@@ -40,10 +41,19 @@ export const accountingCheckerSpecSchema = checkerSpecBaseSchema.extend({
   sampleIncorrect: z.array(accountingLineSchema).min(2)
 });
 
+export const exactAnswerCheckerSpecSchema = checkerSpecBaseSchema.extend({
+  kind: z.literal("conceptual.exact_answer"),
+  expectedAnswers: z.array(z.string().min(1)).min(1),
+  sampleCorrect: z.string().min(1),
+  sampleIncorrect: z.string().min(1),
+  caseSensitive: z.boolean().default(false)
+});
+
 export const checkerSpecSchema = z.discriminatedUnion("kind", [
   algebraCheckerSpecSchema,
   chemistryCheckerSpecSchema,
-  accountingCheckerSpecSchema
+  accountingCheckerSpecSchema,
+  exactAnswerCheckerSpecSchema
 ]);
 
 export const diagnosticProbeSchema = z.object({

@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "0.1",
+  "groups": [
+    {
+      "id": "algebra1",
+      "title": "Algebra 1",
+      "summary": "Accelerated Algebra 1 mastery, starting with expressions and simplification.",
+      "courses": [
+        {
+          "path": "/curriculum/algebra1/expressions.json",
+          "status": "active"
+        }
+      ]
+    },
+    {
+      "id": "accounting",
+      "title": "Accounting",
+      "summary": "A three-course sequence from records and double entry through accrual accounting and financial analysis.",
+      "courses": [
+        {
+          "path": "/curriculum/accounting/journal-entries.json",
+          "status": "active"
+        },
+        {
+          "path": "/curriculum/accounting/accrual-accounting.json",
+          "status": "draft"
+        },
+        {
+          "path": "/curriculum/accounting/financial-analysis.json",
+          "status": "draft"
+        }
+      ]
+    },
+    {
+      "id": "chemistry",
+      "title": "Chemistry",
+      "summary": "Chemistry mastery, currently seeded with conservation of mass and balancing equations.",
+      "courses": [
+        {
+          "path": "/curriculum/chemistry/balancing-equations.json",
+          "status": "seed"
+        }
+      ]
+    }
+  ]
+}

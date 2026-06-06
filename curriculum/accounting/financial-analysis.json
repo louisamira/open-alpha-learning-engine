@@ -1,0 +1,301 @@
+{
+  "schemaVersion": "0.1",
+  "track": {
+    "id": "accounting-301",
+    "title": "Accounting 301",
+    "summary": "Financial statement analysis, earnings quality, unit economics, budgeting, forecasting, and decision use."
+  },
+  "orientationEssays": [
+    {
+      "id": "essay-accounting-301-track",
+      "scope": "track",
+      "targetId": "accounting-301",
+      "title": "Using accounting without being fooled by it",
+      "readingMinutes": 4,
+      "plainLanguageSummary": "Financial analysis uses accounting numbers to ask better questions. The goal is not to worship ratios, but to understand performance, risk, and truth quality.",
+      "historicalOrigin": "As capital markets and professional management grew, accounting records became tools for comparison, valuation, lending, budgeting, and fraud detection.",
+      "socialImportance": "Investors, employees, lenders, founders, and citizens rely on financial claims. Better analysis helps people see whether those claims are durable or distorted.",
+      "whyLearnersCare": "A college senior should be able to read statements, notice cash stress, understand margins, and ask competent follow-up questions.",
+      "commonObjections": [
+        "Learners may think ratios automatically produce a decision.",
+        "Learners may assume audited accounting numbers are the same as economic truth."
+      ],
+      "safelyIgnoreForNow": [
+        "Full valuation modeling",
+        "Complex consolidation accounting"
+      ],
+      "deeperPaths": [
+        "Compare two companies in the same industry using common-size statements.",
+        "Study real earnings-quality failures and the accounting choices behind them."
+      ],
+      "sourceNotes": [
+        "Seeded from docs/CURRICULUM_SCOPE.md Accounting 301."
+      ]
+    }
+  ],
+  "concepts": [
+    {
+      "id": "acct301-statement-analysis",
+      "trackId": "accounting-301",
+      "title": "Statement Analysis",
+      "summary": "Margins, liquidity, leverage, and returns help summarize performance, but only when interpreted in context.",
+      "level": 16,
+      "prerequisites": [],
+      "objectives": [
+        "Choose the right ratio family for a financial question."
+      ],
+      "orientationEssayIds": ["essay-accounting-301-track"],
+      "diagnostics": [
+        {
+          "id": "diag-statement-analysis-1",
+          "prompt": "Which ratio family is most directly about the ability to pay near-term obligations: liquidity, leverage, or margin?",
+          "checker": {
+            "kind": "conceptual.exact_answer",
+            "expectedAnswers": ["liquidity"],
+            "sampleCorrect": "liquidity",
+            "sampleIncorrect": "margin"
+          },
+          "misconceptionIds": ["acct301-misconception-ratio-magic"]
+        }
+      ],
+      "practice": [
+        {
+          "id": "practice-statement-analysis-1",
+          "prompt": "Which ratio family is most directly about debt burden: liquidity, leverage, or margin?",
+          "checker": {
+            "kind": "conceptual.exact_answer",
+            "expectedAnswers": ["leverage"],
+            "sampleCorrect": "leverage",
+            "sampleIncorrect": "margin"
+          },
+          "hints": [
+            "Think about who has claims on the company besides owners."
+          ],
+          "feedback": {
+            "correct": "Correct. Leverage ratios describe debt and capital structure.",
+            "incorrect": "Margins are about profitability, not debt burden."
+          }
+        }
+      ],
+      "masteryCheck": {
+        "id": "mastery-statement-analysis",
+        "passingThreshold": 0.8,
+        "evidenceRequired": [
+          "Selects a ratio family based on the business question.",
+          "Explains why a ratio is a clue rather than a final answer."
+        ],
+        "items": [
+          {
+            "id": "mastery-statement-analysis-1",
+            "prompt": "Which ratio family is most directly about profitability from sales: liquidity, leverage, or margin?",
+            "checker": {
+              "kind": "conceptual.exact_answer",
+              "expectedAnswers": ["margin"],
+              "sampleCorrect": "margin",
+              "sampleIncorrect": "liquidity"
+            },
+            "hints": [
+              "Ask how much of sales remains after costs."
+            ],
+            "feedback": {
+              "correct": "Correct. Margin ratios summarize profitability relative to revenue.",
+              "incorrect": "Liquidity asks about paying obligations, not profit from sales."
+            }
+          }
+        ]
+      },
+      "misconceptions": [
+        {
+          "id": "acct301-misconception-ratio-magic",
+          "description": "Learner treats ratios as automatic grades instead of question-specific evidence.",
+          "remediation": {
+            "type": "alternate_explanation",
+            "targetId": "acct301-statement-analysis",
+            "message": "Start with the question, then choose the ratio that gives relevant evidence."
+          }
+        }
+      ],
+      "sourceReferences": [
+        {
+          "title": "Curriculum scope",
+          "note": "Accounting 301 starts with statement analysis."
+        }
+      ]
+    },
+    {
+      "id": "acct301-earnings-quality",
+      "trackId": "accounting-301",
+      "title": "Earnings Quality",
+      "summary": "Earnings quality asks whether reported profit is repeatable, cash-supported, and free from misleading timing or estimates.",
+      "level": 16,
+      "prerequisites": ["acct301-statement-analysis"],
+      "objectives": [
+        "Identify common earnings-quality warning signs in plain-language scenarios."
+      ],
+      "orientationEssayIds": ["essay-accounting-301-track"],
+      "diagnostics": [
+        {
+          "id": "diag-earnings-quality-1",
+          "prompt": "A company reports strong profit but operating cash flow is repeatedly negative. Is the main concern liquidity, earnings quality, or payroll tax?",
+          "checker": {
+            "kind": "conceptual.exact_answer",
+            "expectedAnswers": ["earnings quality"],
+            "sampleCorrect": "earnings quality",
+            "sampleIncorrect": "payroll tax"
+          },
+          "misconceptionIds": ["acct301-misconception-profit-is-proof"]
+        }
+      ],
+      "practice": [
+        {
+          "id": "practice-earnings-quality-1",
+          "prompt": "A company boosts profit by capitalizing ordinary repairs as assets. Is the concern earnings quality or dividend policy?",
+          "checker": {
+            "kind": "conceptual.exact_answer",
+            "expectedAnswers": ["earnings quality"],
+            "sampleCorrect": "earnings quality",
+            "sampleIncorrect": "dividend policy"
+          },
+          "hints": [
+            "Ask whether expenses are being delayed to make profit look better."
+          ],
+          "feedback": {
+            "correct": "Correct. Misclassifying expenses can make earnings look stronger than they are.",
+            "incorrect": "This is about expense timing and classification, not owner distributions."
+          }
+        }
+      ],
+      "masteryCheck": {
+        "id": "mastery-earnings-quality",
+        "passingThreshold": 0.8,
+        "evidenceRequired": [
+          "Connects accounting choices to reported profit quality."
+        ],
+        "items": [
+          {
+            "id": "mastery-earnings-quality-1",
+            "prompt": "A one-time asset sale creates most of the year's profit. Is the concern repeatability or current ratio?",
+            "checker": {
+              "kind": "conceptual.exact_answer",
+              "expectedAnswers": ["repeatability"],
+              "sampleCorrect": "repeatability",
+              "sampleIncorrect": "current ratio"
+            },
+            "hints": [
+              "Ask whether the profit source is likely to happen again."
+            ],
+            "feedback": {
+              "correct": "Correct. One-time gains may not repeat.",
+              "incorrect": "Current ratio is about liquidity, not whether earnings recur."
+            }
+          }
+        ]
+      },
+      "misconceptions": [
+        {
+          "id": "acct301-misconception-profit-is-proof",
+          "description": "Learner assumes reported profit alone proves business health.",
+          "remediation": {
+            "type": "worked_example",
+            "targetId": "acct301-earnings-quality",
+            "message": "Compare profit with cash flow, repeatability, and accounting estimates."
+          }
+        }
+      ],
+      "sourceReferences": [
+        {
+          "title": "Curriculum scope",
+          "note": "Earnings quality is core to Accounting 301."
+        }
+      ]
+    },
+    {
+      "id": "acct301-unit-economics",
+      "trackId": "accounting-301",
+      "title": "Unit Economics And Break-Even",
+      "summary": "Contribution margin and break-even thinking connect accounting records to operating decisions.",
+      "level": 16,
+      "prerequisites": ["acct301-earnings-quality"],
+      "objectives": [
+        "Identify the key input needed to compute break-even volume."
+      ],
+      "orientationEssayIds": ["essay-accounting-301-track"],
+      "diagnostics": [
+        {
+          "id": "diag-unit-economics-1",
+          "prompt": "Break-even volume equals fixed costs divided by contribution margin per unit. If price is $20 and variable cost is $12, what is contribution margin per unit?",
+          "checker": {
+            "kind": "conceptual.exact_answer",
+            "expectedAnswers": ["8", "$8"],
+            "sampleCorrect": "$8",
+            "sampleIncorrect": "$12"
+          },
+          "misconceptionIds": ["acct301-misconception-price-equals-margin"]
+        }
+      ],
+      "practice": [
+        {
+          "id": "practice-unit-economics-1",
+          "prompt": "If fixed costs are $1,000 and contribution margin per unit is $10, what is break-even volume?",
+          "checker": {
+            "kind": "conceptual.exact_answer",
+            "expectedAnswers": ["100", "100 units"],
+            "sampleCorrect": "100 units",
+            "sampleIncorrect": "10 units"
+          },
+          "hints": [
+            "Divide fixed costs by contribution margin per unit."
+          ],
+          "feedback": {
+            "correct": "Correct. 1,000 divided by 10 equals 100 units.",
+            "incorrect": "Use fixed costs divided by contribution margin per unit."
+          }
+        }
+      ],
+      "masteryCheck": {
+        "id": "mastery-unit-economics",
+        "passingThreshold": 0.8,
+        "evidenceRequired": [
+          "Computes contribution margin.",
+          "Uses contribution margin to reason about break-even."
+        ],
+        "items": [
+          {
+            "id": "mastery-unit-economics-1",
+            "prompt": "Price is $50 and variable cost is $35. What is contribution margin per unit?",
+            "checker": {
+              "kind": "conceptual.exact_answer",
+              "expectedAnswers": ["15", "$15"],
+              "sampleCorrect": "$15",
+              "sampleIncorrect": "$35"
+            },
+            "hints": [
+              "Subtract variable cost from price."
+            ],
+            "feedback": {
+              "correct": "Correct. Each unit contributes $15 toward fixed costs and profit.",
+              "incorrect": "Variable cost is not contribution margin; subtract it from price."
+            }
+          }
+        ]
+      },
+      "misconceptions": [
+        {
+          "id": "acct301-misconception-price-equals-margin",
+          "description": "Learner treats the selling price as contribution margin.",
+          "remediation": {
+            "type": "worked_example",
+            "targetId": "acct301-unit-economics",
+            "message": "Contribution margin is what remains after variable cost, not the full selling price."
+          }
+        }
+      ],
+      "sourceReferences": [
+        {
+          "title": "Curriculum scope",
+          "note": "Unit economics and managerial accounting are part of Accounting 301."
+        }
+      ]
+    }
+  ]
+}

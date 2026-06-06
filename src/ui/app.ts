@@ -1,6 +1,7 @@
 import { checkAccountingEntry } from "../checkers/accounting-entry.js";
 import { checkAlgebraSimplification } from "../checkers/algebra-expression.js";
 import { checkChemistryBalance } from "../checkers/chemistry-balancing.js";
+import { checkExactAnswer } from "../checkers/index.js";
 import type { AccountingLine, CheckerSpec } from "../domain/curriculum-graph.js";
 
 type PracticeItem = {
@@ -48,26 +49,40 @@ type Artifact = {
   concepts: Concept[];
 };
 
-const curriculumFiles = [
-  "/curriculum/algebra1/expressions.json",
-  "/curriculum/chemistry/balancing-equations.json",
-  "/curriculum/accounting/journal-entries.json"
-];
+type CurriculumManifest = {
+  groups: CourseGroup[];
+};
+
+type CourseGroup = {
+  id: string;
+  title: string;
+  summary: string;
+  courses: CourseEntry[];
+};
+
+type CourseEntry = {
+    path: string;
+    status: "seed" | "active" | "draft";
+    artifact?: Artifact;
+};
 
 const state: {
-  artifacts: Artifact[];
+  groups: CourseGroup[];
+  group?: CourseGroup;
   artifact?: Artifact;
+  course?: CourseEntry;
   concept?: Concept;
   item?: PracticeItem;
 } = {
-  artifacts: []
+  groups: []
 };
 
 const trackNav = byId("trackNav");
 const conceptList = byId("conceptList");
-const trackName = byId("trackName");
+const groupName = byId("groupName");
 const conceptTitle = byId("conceptTitle");
 const conceptSummary = byId("conceptSummary");
+const courseSwitcher = byId("courseSwitcher") as HTMLElement;
 const essaySection = byId("essaySection") as HTMLElement;
 const essayTitle = byId("essayTitle");
 const essayPlain = byId("essayPlain");
@@ -86,9 +101,20 @@ const masteryEvidence = byId("masteryEvidence");
 void init();
 
 async function init(): Promise<void> {
-  state.artifacts = await Promise.all(curriculumFiles.map(loadArtifact));
+  const manifest = await loadManifest();
+  state.groups = await Promise.all(
+    manifest.groups.map(async (group) => ({
+      ...group,
+      courses: await Promise.all(
+        group.courses.map(async (course) => ({
+          ...course,
+          artifact: await loadArtifact(course.path)
+        }))
+      )
+    }))
+  );
   renderTrackNav();
-  selectTrack(state.artifacts[0].track.id);
+  selectGroup(state.groups[0].id);
 
   practiceSelect.addEventListener("change", () => {
     if (!state.concept) {
@@ -112,6 +138,14 @@ async function init(): Promise<void> {
   });
 }
 
+async function loadManifest(): Promise<CurriculumManifest> {
+  const response = await fetch("/curriculum/manifest.json");
+  if (!response.ok) {
+    throw new Error("Could not load curriculum manifest.");
+  }
+  return (await response.json()) as CurriculumManifest;
+}
+
 async function loadArtifact(file: string): Promise<Artifact> {
   const response = await fetch(file);
   if (!response.ok) {
@@ -122,25 +156,69 @@ async function loadArtifact(file: string): Promise<Artifact> {
 
 function renderTrackNav(): void {
   trackNav.replaceChildren(
-    ...state.artifacts.map((artifact) => {
+    ...state.groups.map((group) => {
       const button = document.createElement("button");
       button.type = "button";
-      button.textContent = artifact.track.title;
-      button.addEventListener("click", () => selectTrack(artifact.track.id));
+      button.textContent = group.title;
+      button.addEventListener("click", () => selectGroup(group.id));
       return button;
     })
   );
 }
 
-function selectTrack(trackId: string): void {
-  const artifact = state.artifacts.find((candidate) => candidate.track.id === trackId);
-  if (!artifact) {
+function selectGroup(groupId: string): void {
+  const group = state.groups.find((candidate) => candidate.id === groupId);
+  if (!group) {
     return;
   }
 
-  state.artifact = artifact;
+  state.group = group;
   [...trackNav.querySelectorAll("button")].forEach((button) => {
-    button.setAttribute("aria-current", button.textContent === artifact.track.title ? "true" : "false");
+    button.setAttribute("aria-current", button.textContent === group.title ? "true" : "false");
+  });
+
+  renderCourseSwitcher(group);
+  selectCourse(group.courses[0].path);
+}
+
+function renderCourseSwitcher(group: CourseGroup): void {
+  if (group.courses.length <= 1) {
+    courseSwitcher.hidden = true;
+    courseSwitcher.replaceChildren();
+    return;
+  }
+
+  courseSwitcher.hidden = false;
+  courseSwitcher.replaceChildren(
+    ...group.courses.map((course) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      const title = course.artifact?.track.title ?? course.path;
+      button.setAttribute("aria-label", `${title} ${course.status}`);
+      button.append(document.createTextNode(title));
+      const status = document.createElement("span");
+      status.className = "status";
+      status.textContent = course.status;
+      button.append(document.createTextNode(" "));
+      button.append(status);
+      button.addEventListener("click", () => selectCourse(course.path));
+      return button;
+    })
+  );
+}
+
+function selectCourse(coursePath: string): void {
+  const course = state.group?.courses.find((candidate) => candidate.path === coursePath);
+  const artifact = course?.artifact;
+  if (!course || !artifact) {
+    return;
+  }
+
+  state.course = course;
+  state.artifact = artifact;
+
+  [...courseSwitcher.querySelectorAll("button")].forEach((button) => {
+    button.setAttribute("aria-current", button.textContent?.includes(artifact.track.title) ? "true" : "false");
   });
 
   conceptList.replaceChildren(
@@ -169,7 +247,7 @@ function selectConcept(conceptId: string): void {
   }
 
   state.concept = concept;
-  trackName.textContent = state.artifact.track.title;
+  groupName.textContent = courseLabel();
   conceptTitle.textContent = concept.title;
   conceptSummary.textContent = concept.summary;
   objectives.replaceChildren(...concept.objectives.map(listItem));
@@ -180,6 +258,16 @@ function selectConcept(conceptId: string): void {
   [...conceptList.querySelectorAll("button")].forEach((button) => {
     button.setAttribute("aria-current", button.textContent === concept.title ? "true" : "false");
   });
+}
+
+function courseLabel(): string {
+  if (!state.group || !state.artifact) {
+    return "";
+  }
+
+  return state.group.courses.length > 1
+    ? `${state.group.title} / ${state.artifact.track.title}`
+    : state.group.title;
 }
 
 function renderEssay(concept: Concept): void {
@@ -231,7 +319,13 @@ function createAnswerInput(spec: CheckerSpec): HTMLElement {
   input.id = "answer";
   input.autocomplete = "off";
   input.spellcheck = false;
-  input.value = spec.kind === "algebra.expression_simplification" ? spec.expectedExpression : spec.sampleCorrect;
+  if (spec.kind === "algebra.expression_simplification") {
+    input.value = spec.expectedExpression;
+  } else if (spec.kind === "conceptual.exact_answer") {
+    input.value = spec.sampleCorrect;
+  } else {
+    input.value = spec.sampleCorrect;
+  }
   return input;
 }
 
@@ -262,6 +356,12 @@ function checkResponse(spec: CheckerSpec): { correct: boolean; message: string }
           message: "Journal entry answers must be valid JSON lines."
         };
       }
+    case "conceptual.exact_answer":
+      return checkExactAnswer({
+        expectedAnswers: spec.expectedAnswers,
+        response: answer.value,
+        caseSensitive: spec.caseSensitive
+      });
   }
 }
 
@@ -291,6 +391,8 @@ function labelForChecker(spec: CheckerSpec): string {
       return "Balance";
     case "accounting.journal_entry":
       return "Journal";
+    case "conceptual.exact_answer":
+      return "Classify";
   }
 }
 

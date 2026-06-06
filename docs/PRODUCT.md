@@ -26,6 +26,8 @@ Contributors and agents should get:
 - Review decisions with accept, reject, or improve outcomes
 - Reputation from accepted contributions and downstream learner outcomes
 
+The contribution model should feel closer to Wikipedia than to a closed course CMS: curriculum nodes are reviewed artifacts, improvements are small and reversible, source notes matter, and validation runs before changes reach learners.
+
 ## Initial Tracks
 
 1. Algebra 1

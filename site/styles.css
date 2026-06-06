@@ -77,6 +77,25 @@ button[aria-current="true"] {
   color: var(--accent);
 }
 
+.course-switcher {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.85rem;
+}
+
+.course-switcher button {
+  border-radius: 0;
+}
+
+.status {
+  display: inline-block;
+  color: var(--muted);
+  font-size: 0.76rem;
+  margin-left: 0.45rem;
+  text-transform: uppercase;
+}
+
 .layout {
   display: grid;
   grid-template-columns: minmax(13rem, 18rem) minmax(0, 58rem);

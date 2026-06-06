@@ -18,6 +18,8 @@ Curriculum lives as JSON artifacts under `curriculum/`. Each artifact contains:
 - Misconceptions and remediation links
 - Source references
 
+`curriculum/manifest.json` controls which artifacts are visible in the lightweight browser UI. It groups course artifacts under top-level subject buckets and marks each course `active`, `draft`, or `seed`.
+
 The graph validator checks schema validity, duplicate IDs, missing prerequisites, cycles, level inversions, orphaned concepts, missing diagnostics, missing mastery checks, and checker coverage.
 
 ### Orientation Essays

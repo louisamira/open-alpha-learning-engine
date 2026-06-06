@@ -1,15 +1,15 @@
 {
   "schemaVersion": "0.1",
   "track": {
-    "id": "accounting",
-    "title": "Accounting",
-    "summary": "A practical path for understanding records, trust, debits, credits, and financial statements."
+    "id": "accounting-101",
+    "title": "Accounting 101",
+    "summary": "Records, trust, the accounting equation, debits, credits, journal entries, ledgers, trial balance, and first statements."
   },
   "orientationEssays": [
     {
       "id": "essay-accounting-track",
       "scope": "track",
-      "targetId": "accounting",
+      "targetId": "accounting-101",
       "title": "What is Accounting?",
       "readingMinutes": 4,
       "plainLanguageSummary": "Accounting is a social technology for trust. It turns messy economic activity into records that people can inspect, compare, and use for decisions.",
@@ -36,7 +36,7 @@
   "concepts": [
     {
       "id": "acct-accounting-equation",
-      "trackId": "accounting",
+      "trackId": "accounting-101",
       "title": "The Accounting Equation",
       "summary": "Assets equal liabilities plus equity, and every transaction keeps that equation balanced.",
       "level": 13,
@@ -225,7 +225,7 @@
     },
     {
       "id": "acct-journal-entries",
-      "trackId": "accounting",
+      "trackId": "accounting-101",
       "title": "Journal Entries",
       "summary": "Journal entries record transactions with equal debits and credits across named accounts.",
       "level": 14,

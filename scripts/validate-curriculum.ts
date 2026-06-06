@@ -1,5 +1,6 @@
 import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
+import { z } from "zod";
 import { curriculumArtifactSchema, type CheckerSpec, type ConceptNode, type CurriculumArtifact } from "../src/domain/curriculum-graph.js";
 import { runSampleChecks } from "../src/checkers/index.js";
 
@@ -10,16 +11,36 @@ type ValidationIssue = {
 
 const curriculumRoot = path.resolve("curriculum");
 
+const curriculumManifestSchema = z.object({
+  schemaVersion: z.literal("0.1"),
+  groups: z.array(z.object({
+    id: z.string().min(1),
+    title: z.string().min(1),
+    summary: z.string().min(1),
+    courses: z.array(z.object({
+      path: z.string().startsWith("/curriculum/"),
+      status: z.enum(["seed", "active", "draft"])
+    })).min(1)
+  })).min(1)
+});
+
 async function main(): Promise<void> {
   const files = await findJsonFiles(curriculumRoot);
   const issues: ValidationIssue[] = [];
   let checkerCount = 0;
+  let manifestCount = 0;
 
   if (files.length === 0) {
     issues.push({ file: "curriculum", message: "No curriculum JSON files found." });
   }
 
   for (const file of files) {
+    if (path.basename(file) === "manifest.json") {
+      await validateManifest(file, issues);
+      manifestCount += 1;
+      continue;
+    }
+
     const artifact = await parseArtifact(file, issues);
     if (!artifact) {
       continue;
@@ -54,7 +75,7 @@ async function main(): Promise<void> {
     return;
   }
 
-  console.log(`Validated ${files.length} curriculum files and exercised ${checkerCount} checker specs.`);
+  console.log(`Validated ${files.length - manifestCount} curriculum files, ${manifestCount} manifest, and exercised ${checkerCount} checker specs.`);
 }
 
 async function parseArtifact(file: string, issues: ValidationIssue[]): Promise<CurriculumArtifact | undefined> {
@@ -77,6 +98,50 @@ async function parseArtifact(file: string, issues: ValidationIssue[]): Promise<C
       message: error instanceof Error ? error.message : "Could not parse JSON."
     });
     return undefined;
+  }
+}
+
+async function validateManifest(file: string, issues: ValidationIssue[]): Promise<void> {
+  try {
+    const raw = JSON.parse(await readFile(file, "utf8")) as unknown;
+    const parsed = curriculumManifestSchema.safeParse(raw);
+    if (!parsed.success) {
+      for (const issue of parsed.error.issues) {
+        issues.push({
+          file,
+          message: `${issue.path.join(".") || "root"}: ${issue.message}`
+        });
+      }
+      return;
+    }
+
+    const seenGroups = new Set<string>();
+    const seenArtifacts = new Set<string>();
+    for (const group of parsed.data.groups) {
+      if (seenGroups.has(group.id)) {
+        issues.push({ file, message: `Duplicate manifest group ${group.id}.` });
+      }
+      seenGroups.add(group.id);
+
+      for (const artifact of group.courses) {
+        if (seenArtifacts.has(artifact.path)) {
+          issues.push({ file, message: `Duplicate manifest artifact ${artifact.path}.` });
+        }
+        seenArtifacts.add(artifact.path);
+
+        const artifactPath = path.join(process.cwd(), artifact.path);
+        try {
+          await readFile(artifactPath, "utf8");
+        } catch {
+          issues.push({ file, message: `Manifest references missing artifact ${artifact.path}.` });
+        }
+      }
+    }
+  } catch (error) {
+    issues.push({
+      file,
+      message: error instanceof Error ? error.message : "Could not parse manifest JSON."
+    });
   }
 }
 

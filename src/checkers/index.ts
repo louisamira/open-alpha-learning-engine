@@ -47,5 +47,35 @@ export function runSampleChecks(spec: CheckerSpec): { correct: CheckerResult; in
           responseLines: spec.sampleIncorrect
         })
       };
+
+    case "conceptual.exact_answer":
+      return {
+        correct: checkExactAnswer({
+          expectedAnswers: spec.expectedAnswers,
+          response: spec.sampleCorrect,
+          caseSensitive: spec.caseSensitive
+        }),
+        incorrect: checkExactAnswer({
+          expectedAnswers: spec.expectedAnswers,
+          response: spec.sampleIncorrect,
+          caseSensitive: spec.caseSensitive
+        })
+      };
   }
+}
+
+export function checkExactAnswer(input: {
+  expectedAnswers: string[];
+  response: string;
+  caseSensitive?: boolean;
+}): CheckerResult {
+  const normalize = input.caseSensitive
+    ? (value: string) => value.trim().replace(/\s+/g, " ")
+    : (value: string) => value.trim().replace(/\s+/g, " ").toLowerCase();
+  const response = normalize(input.response);
+  const accepted = input.expectedAnswers.map(normalize);
+
+  return accepted.includes(response)
+    ? { correct: true, message: "The answer matches the expected classification." }
+    : { correct: false, message: "The answer does not match the expected classification." };
 }

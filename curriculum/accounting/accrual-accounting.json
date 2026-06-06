@@ -1,0 +1,331 @@
+{
+  "schemaVersion": "0.1",
+  "track": {
+    "id": "accounting-201",
+    "title": "Accounting 201",
+    "summary": "Accrual accounting, adjusting entries, inventory, cash flow classification, internal controls, and closing."
+  },
+  "orientationEssays": [
+    {
+      "id": "essay-accounting-201-track",
+      "scope": "track",
+      "targetId": "accounting-201",
+      "title": "Why accrual accounting exists",
+      "readingMinutes": 4,
+      "plainLanguageSummary": "Accrual accounting separates when cash moves from when economic activity really happens. That distinction makes records more useful for judging performance.",
+      "historicalOrigin": "As trade and credit became more complex, cash receipts alone stopped telling the truth. Merchants needed records for promises, obligations, inventory, and timing.",
+      "socialImportance": "Accrual accounting helps lenders, owners, managers, and workers see whether a business is actually earning money or only temporarily holding cash.",
+      "whyLearnersCare": "A college senior should be able to tell the difference between being paid, earning revenue, owing money, and using up resources.",
+      "commonObjections": [
+        "Learners often think profit should always equal cash.",
+        "Adjusting entries can feel artificial until the timing problem is visible."
+      ],
+      "safelyIgnoreForNow": [
+        "Industry-specific revenue rules",
+        "Full audit standards"
+      ],
+      "deeperPaths": [
+        "Study revenue recognition and matching in real company statements.",
+        "Compare cash-basis books with accrual-basis books for the same business."
+      ],
+      "sourceNotes": [
+        "Seeded from docs/CURRICULUM_SCOPE.md Accounting 201."
+      ]
+    }
+  ],
+  "concepts": [
+    {
+      "id": "acct201-accrual-vs-cash",
+      "trackId": "accounting-201",
+      "title": "Accrual vs Cash Basis",
+      "summary": "Revenue and expenses should often be recognized when earned or incurred, not only when cash changes hands.",
+      "level": 15,
+      "prerequisites": [],
+      "objectives": [
+        "Classify a scenario as cash-basis or accrual-basis recognition."
+      ],
+      "orientationEssayIds": ["essay-accounting-201-track"],
+      "diagnostics": [
+        {
+          "id": "diag-accrual-vs-cash-1",
+          "prompt": "A company performs $900 of services in March and receives cash in April. Under accrual accounting, which month records revenue?",
+          "checker": {
+            "kind": "conceptual.exact_answer",
+            "expectedAnswers": ["March"],
+            "sampleCorrect": "March",
+            "sampleIncorrect": "April"
+          },
+          "misconceptionIds": ["acct201-misconception-revenue-equals-cash"]
+        }
+      ],
+      "practice": [
+        {
+          "id": "practice-accrual-vs-cash-1",
+          "prompt": "Rent for June is owed but unpaid on June 30. Under accrual accounting, should the expense be recognized in June or July?",
+          "checker": {
+            "kind": "conceptual.exact_answer",
+            "expectedAnswers": ["June"],
+            "sampleCorrect": "June",
+            "sampleIncorrect": "July"
+          },
+          "hints": [
+            "Ask when the resource was used, not when cash was paid."
+          ],
+          "feedback": {
+            "correct": "Correct. The expense belongs to the period that used the rent.",
+            "incorrect": "Accrual accounting records the expense when incurred, even before cash payment."
+          }
+        }
+      ],
+      "masteryCheck": {
+        "id": "mastery-accrual-vs-cash",
+        "passingThreshold": 0.8,
+        "evidenceRequired": [
+          "Separates earning revenue from receiving cash.",
+          "Separates incurring expenses from paying cash."
+        ],
+        "items": [
+          {
+            "id": "mastery-accrual-vs-cash-1",
+            "prompt": "A customer pays in advance for work that will happen next month. Is the first entry revenue or unearned revenue?",
+            "checker": {
+              "kind": "conceptual.exact_answer",
+              "expectedAnswers": ["unearned revenue"],
+              "sampleCorrect": "Unearned revenue",
+              "sampleIncorrect": "Revenue"
+            },
+            "hints": [
+              "The company has cash, but has not done the work yet."
+            ],
+            "feedback": {
+              "correct": "Correct. The business owes future service.",
+              "incorrect": "Cash received before work is done is a liability until earned."
+            }
+          }
+        ]
+      },
+      "misconceptions": [
+        {
+          "id": "acct201-misconception-revenue-equals-cash",
+          "description": "Learner treats cash receipt as the only moment revenue can exist.",
+          "remediation": {
+            "type": "alternate_explanation",
+            "targetId": "acct201-accrual-vs-cash",
+            "message": "Separate the promise, the work, the invoice, and the cash receipt."
+          }
+        }
+      ],
+      "sourceReferences": [
+        {
+          "title": "Curriculum scope",
+          "note": "Accounting 201 starts with accrual vs cash basis."
+        }
+      ]
+    },
+    {
+      "id": "acct201-adjusting-entries",
+      "trackId": "accounting-201",
+      "title": "Adjusting Entries",
+      "summary": "Period-end entries update revenue, expenses, assets, and liabilities so statements reflect economic reality.",
+      "level": 15,
+      "prerequisites": ["acct201-accrual-vs-cash"],
+      "objectives": [
+        "Record simple accrued expense, deferred revenue, prepaid expense, and depreciation adjustments."
+      ],
+      "orientationEssayIds": ["essay-accounting-201-track"],
+      "diagnostics": [
+        {
+          "id": "diag-adjusting-entries-1",
+          "prompt": "Record $300 of wages earned by employees but unpaid at month end.",
+          "checker": {
+            "kind": "accounting.journal_entry",
+            "transaction": "Record $300 of accrued wages at month end.",
+            "expectedLines": [
+              { "account": "Wages Expense", "side": "debit", "amount": 300 },
+              { "account": "Wages Payable", "side": "credit", "amount": 300 }
+            ],
+            "sampleCorrect": [
+              { "account": "Wages Expense", "side": "debit", "amount": 300 },
+              { "account": "Wages Payable", "side": "credit", "amount": 300 }
+            ],
+            "sampleIncorrect": [
+              { "account": "Wages Expense", "side": "debit", "amount": 300 },
+              { "account": "Cash", "side": "credit", "amount": 300 }
+            ]
+          },
+          "misconceptionIds": ["acct201-misconception-accrual-uses-cash"]
+        }
+      ],
+      "practice": [
+        {
+          "id": "practice-adjusting-entries-1",
+          "prompt": "Record $120 of insurance used from a prepaid insurance asset.",
+          "checker": {
+            "kind": "accounting.journal_entry",
+            "transaction": "Record $120 of prepaid insurance used.",
+            "expectedLines": [
+              { "account": "Insurance Expense", "side": "debit", "amount": 120 },
+              { "account": "Prepaid Insurance", "side": "credit", "amount": 120 }
+            ],
+            "sampleCorrect": [
+              { "account": "Insurance Expense", "side": "debit", "amount": 120 },
+              { "account": "Prepaid Insurance", "side": "credit", "amount": 120 }
+            ],
+            "sampleIncorrect": [
+              { "account": "Prepaid Insurance", "side": "debit", "amount": 120 },
+              { "account": "Insurance Expense", "side": "credit", "amount": 120 }
+            ]
+          },
+          "hints": [
+            "The asset is being used up and expense is increasing."
+          ],
+          "feedback": {
+            "correct": "Correct. The adjustment moves used value from asset to expense.",
+            "incorrect": "Prepaid Insurance decreases with a credit."
+          }
+        }
+      ],
+      "masteryCheck": {
+        "id": "mastery-adjusting-entries",
+        "passingThreshold": 0.8,
+        "evidenceRequired": [
+          "Records an adjustment without incorrectly using cash.",
+          "Explains how the adjustment changes statements."
+        ],
+        "items": [
+          {
+            "id": "mastery-adjusting-entries-1",
+            "prompt": "Record $400 of services now earned from previously unearned revenue.",
+            "checker": {
+              "kind": "accounting.journal_entry",
+              "transaction": "Record $400 of previously unearned revenue now earned.",
+              "expectedLines": [
+                { "account": "Unearned Revenue", "side": "debit", "amount": 400 },
+                { "account": "Service Revenue", "side": "credit", "amount": 400 }
+              ],
+              "sampleCorrect": [
+                { "account": "Unearned Revenue", "side": "debit", "amount": 400 },
+                { "account": "Service Revenue", "side": "credit", "amount": 400 }
+              ],
+              "sampleIncorrect": [
+                { "account": "Cash", "side": "debit", "amount": 400 },
+                { "account": "Service Revenue", "side": "credit", "amount": 400 }
+              ]
+            },
+            "hints": [
+              "Cash was received earlier; this adjustment recognizes earned revenue now."
+            ],
+            "feedback": {
+              "correct": "Correct. The liability goes down and revenue is earned.",
+              "incorrect": "Do not record cash again when only the earning status changed."
+            }
+          }
+        ]
+      },
+      "misconceptions": [
+        {
+          "id": "acct201-misconception-accrual-uses-cash",
+          "description": "Learner credits or debits cash in accrual adjustments even when no cash moves.",
+          "remediation": {
+            "type": "worked_example",
+            "targetId": "acct201-adjusting-entries",
+            "message": "Ask whether cash actually moved today before using the Cash account."
+          }
+        }
+      ],
+      "sourceReferences": [
+        {
+          "title": "Curriculum scope",
+          "note": "Adjusting entries are the core Accounting 201 deterministic practice area."
+        }
+      ]
+    },
+    {
+      "id": "acct201-cash-flow-classification",
+      "trackId": "accounting-201",
+      "title": "Cash Flow Classification",
+      "summary": "Cash flows are grouped into operating, investing, and financing activities so cash reality can be compared with profit.",
+      "level": 15,
+      "prerequisites": ["acct201-adjusting-entries"],
+      "objectives": [
+        "Classify common cash flows as operating, investing, or financing."
+      ],
+      "orientationEssayIds": ["essay-accounting-201-track"],
+      "diagnostics": [
+        {
+          "id": "diag-cash-flow-classification-1",
+          "prompt": "A company receives cash from issuing a bank loan. Is this operating, investing, or financing cash flow?",
+          "checker": {
+            "kind": "conceptual.exact_answer",
+            "expectedAnswers": ["financing"],
+            "sampleCorrect": "financing",
+            "sampleIncorrect": "operating"
+          },
+          "misconceptionIds": ["acct201-misconception-all-cash-operating"]
+        }
+      ],
+      "practice": [
+        {
+          "id": "practice-cash-flow-classification-1",
+          "prompt": "A company buys equipment for cash. Is this operating, investing, or financing cash flow?",
+          "checker": {
+            "kind": "conceptual.exact_answer",
+            "expectedAnswers": ["investing"],
+            "sampleCorrect": "investing",
+            "sampleIncorrect": "operating"
+          },
+          "hints": [
+            "Equipment is a long-term productive asset."
+          ],
+          "feedback": {
+            "correct": "Correct. Buying long-term assets is investing activity.",
+            "incorrect": "Operating cash flow is for core business operations, not buying long-term assets."
+          }
+        }
+      ],
+      "masteryCheck": {
+        "id": "mastery-cash-flow-classification",
+        "passingThreshold": 0.8,
+        "evidenceRequired": [
+          "Classifies cash movements by business purpose."
+        ],
+        "items": [
+          {
+            "id": "mastery-cash-flow-classification-1",
+            "prompt": "A company pays dividends to owners. Is this operating, investing, or financing cash flow?",
+            "checker": {
+              "kind": "conceptual.exact_answer",
+              "expectedAnswers": ["financing"],
+              "sampleCorrect": "financing",
+              "sampleIncorrect": "operating"
+            },
+            "hints": [
+              "Dividends are transactions with capital providers."
+            ],
+            "feedback": {
+              "correct": "Correct. Dividends are financing cash flows.",
+              "incorrect": "Payments to owners belong with financing activities."
+            }
+          }
+        ]
+      },
+      "misconceptions": [
+        {
+          "id": "acct201-misconception-all-cash-operating",
+          "description": "Learner treats every cash movement as operating cash flow.",
+          "remediation": {
+            "type": "alternate_explanation",
+            "targetId": "acct201-cash-flow-classification",
+            "message": "Classify cash by why it moved: operations, long-term assets, or capital providers."
+          }
+        }
+      ],
+      "sourceReferences": [
+        {
+          "title": "Curriculum scope",
+          "note": "Cash flow classification is a required Accounting 201 target."
+        }
+      ]
+    }
+  ]
+}

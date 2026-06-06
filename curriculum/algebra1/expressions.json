@@ -1,0 +1,246 @@
+{
+  "schemaVersion": "0.1",
+  "track": {
+    "id": "algebra1",
+    "title": "Algebra 1",
+    "summary": "A first algebra path focused on unknowns, relationships, expressions, equations, and functions."
+  },
+  "orientationEssays": [
+    {
+      "id": "essay-algebra1-track",
+      "scope": "track",
+      "targetId": "algebra1",
+      "title": "What is Algebra 1?",
+      "readingMinutes": 4,
+      "plainLanguageSummary": "Algebra is a language for representing unknown quantities and relationships. It turns a hidden value into something you can name, reason about, and solve.",
+      "historicalOrigin": "Algebra grew from practical problems in trade, inheritance, surveying, astronomy, and engineering. Mathematical traditions across many cultures shaped it, including Arabic work on al-jabr, restoration or completion.",
+      "socialImportance": "Modern life is full of hidden variables: prices, rates, loans, growth, risk, motion, and code. Algebra helps people represent those hidden pieces instead of guessing.",
+      "whyLearnersCare": "When algebra clicks, many problems stop feeling like isolated tricks. You gain a reusable way to describe patterns, compare options, and solve for missing information.",
+      "commonObjections": [
+        "Learners often ask why letters appear in math when numbers seem more concrete.",
+        "Some learners think algebra is only useful for tests, not for daily decisions."
+      ],
+      "safelyIgnoreForNow": [
+        "Formal proof systems",
+        "Advanced functions"
+      ],
+      "deeperPaths": [
+        "Study how algebra connects to coordinate graphs and linear functions.",
+        "Explore how symbolic algebra supports programming, physics, economics, and statistics."
+      ],
+      "sourceNotes": [
+        "Seeded from the project plan orientation requirements and common Algebra 1 scope."
+      ]
+    },
+    {
+      "id": "essay-algebra-expressions-concept",
+      "scope": "concept",
+      "targetId": "alg1-expressions-simplifying",
+      "title": "Why simplify expressions?",
+      "readingMinutes": 3,
+      "plainLanguageSummary": "Simplifying expressions is the habit of saying the same relationship in a cleaner form. You are not changing the meaning, only removing clutter.",
+      "historicalOrigin": "As algebra notation became more compact, mathematicians needed reliable rules for rewriting expressions without changing their value. Combining like terms is one of those basic rules.",
+      "socialImportance": "Clear symbolic expressions help engineers, analysts, programmers, and scientists avoid mistakes when a relationship has many moving parts.",
+      "whyLearnersCare": "Simplifying makes later equation solving easier. If you can turn a messy expression into a cleaner one, you can see the actual structure of the problem.",
+      "commonObjections": [
+        "It can feel like busywork until learners see that simplification preserves meaning.",
+        "Learners often wonder why unlike terms cannot be combined."
+      ],
+      "safelyIgnoreForNow": [
+        "Polynomial division",
+        "Rational expression restrictions"
+      ],
+      "deeperPaths": [
+        "Connect simplification to the distributive property and factoring.",
+        "Use expression trees to see how software represents algebra."
+      ],
+      "sourceNotes": [
+        "Seeded as a concept-level orientation essay for the first Algebra 1 vertical slice."
+      ]
+    }
+  ],
+  "concepts": [
+    {
+      "id": "alg1-expression-parts",
+      "trackId": "algebra1",
+      "title": "Parts of an Algebraic Expression",
+      "summary": "Variables, coefficients, constants, and like terms are the vocabulary needed to simplify expressions.",
+      "level": 9,
+      "prerequisites": [],
+      "objectives": [
+        "Identify variables, coefficients, constants, and like terms in a linear expression."
+      ],
+      "orientationEssayIds": ["essay-algebra1-track"],
+      "diagnostics": [
+        {
+          "id": "diag-expression-parts-1",
+          "prompt": "Combine the like terms: 3x + 2x",
+          "checker": {
+            "kind": "algebra.expression_simplification",
+            "originalExpression": "3x + 2x",
+            "expectedExpression": "5x",
+            "sampleCorrect": "5x",
+            "sampleIncorrect": "5x^2"
+          },
+          "misconceptionIds": ["alg1-misconception-add-exponents"]
+        }
+      ],
+      "practice": [
+        {
+          "id": "practice-expression-parts-1",
+          "prompt": "Simplify: 4y + 7y",
+          "checker": {
+            "kind": "algebra.expression_simplification",
+            "originalExpression": "4y + 7y",
+            "expectedExpression": "11y",
+            "sampleCorrect": "11y",
+            "sampleIncorrect": "11y^2"
+          },
+          "hints": [
+            "Add the coefficients and keep the variable the same."
+          ],
+          "feedback": {
+            "correct": "Correct. Four y terms plus seven y terms makes eleven y terms.",
+            "incorrect": "When terms have the same variable and exponent, add only the coefficients."
+          }
+        }
+      ],
+      "masteryCheck": {
+        "id": "mastery-expression-parts",
+        "passingThreshold": 0.8,
+        "evidenceRequired": [
+          "Correctly combines like terms without changing exponents."
+        ],
+        "items": [
+          {
+            "id": "mastery-expression-parts-1",
+            "prompt": "Simplify: 8a - 3a",
+            "checker": {
+              "kind": "algebra.expression_simplification",
+              "originalExpression": "8a - 3a",
+              "expectedExpression": "5a",
+              "sampleCorrect": "5a",
+              "sampleIncorrect": "5a^2"
+            },
+            "hints": [
+              "Subtract the coefficients of the like terms."
+            ],
+            "feedback": {
+              "correct": "Correct. The variable stays a.",
+              "incorrect": "Do not change the exponent when combining like terms."
+            }
+          }
+        ]
+      },
+      "misconceptions": [
+        {
+          "id": "alg1-misconception-add-exponents",
+          "description": "Learner adds exponents when combining like terms, such as treating 3x + 2x as 5x^2.",
+          "remediation": {
+            "type": "worked_example",
+            "targetId": "alg1-expression-parts",
+            "message": "Return to concrete groups: three x groups plus two x groups equals five x groups."
+          }
+        }
+      ],
+      "sourceReferences": [
+        {
+          "title": "Project seed plan",
+          "note": "First Algebra 1 slice: expressions and simplifying."
+        }
+      ]
+    },
+    {
+      "id": "alg1-expressions-simplifying",
+      "trackId": "algebra1",
+      "title": "Simplifying Algebraic Expressions",
+      "summary": "Simplify expressions by distributing and combining like terms.",
+      "level": 9,
+      "prerequisites": ["alg1-expression-parts"],
+      "objectives": [
+        "Use the distributive property and like terms to simplify a linear algebraic expression."
+      ],
+      "orientationEssayIds": ["essay-algebra-expressions-concept"],
+      "diagnostics": [
+        {
+          "id": "diag-simplify-1",
+          "prompt": "Simplify: 2(x + 3) + 4x",
+          "checker": {
+            "kind": "algebra.expression_simplification",
+            "originalExpression": "2(x + 3) + 4x",
+            "expectedExpression": "6x + 6",
+            "sampleCorrect": "6x + 6",
+            "sampleIncorrect": "6x + 3"
+          },
+          "misconceptionIds": ["alg1-misconception-partial-distribution"]
+        }
+      ],
+      "practice": [
+        {
+          "id": "practice-simplify-1",
+          "prompt": "Simplify: 5(2x - 3) + 4x",
+          "checker": {
+            "kind": "algebra.expression_simplification",
+            "originalExpression": "5(2x - 3) + 4x",
+            "expectedExpression": "14x - 15",
+            "sampleCorrect": "14x - 15",
+            "sampleIncorrect": "10x - 15"
+          },
+          "hints": [
+            "First multiply 5 by each term inside the parentheses.",
+            "Then combine the x terms."
+          ],
+          "feedback": {
+            "correct": "Correct. You distributed first, then combined like terms.",
+            "incorrect": "Check whether every term inside the parentheses was multiplied by 5."
+          }
+        }
+      ],
+      "masteryCheck": {
+        "id": "mastery-simplify-expressions",
+        "passingThreshold": 0.8,
+        "evidenceRequired": [
+          "Distributes across parentheses.",
+          "Combines like terms after distribution."
+        ],
+        "items": [
+          {
+            "id": "mastery-simplify-1",
+            "prompt": "Simplify: 3(2x + 5) - x",
+            "checker": {
+              "kind": "algebra.expression_simplification",
+              "originalExpression": "3(2x + 5) - x",
+              "expectedExpression": "5x + 15",
+              "sampleCorrect": "5x + 15",
+              "sampleIncorrect": "6x + 15"
+            },
+            "hints": [
+              "Distribute the 3, then subtract one x term."
+            ],
+            "feedback": {
+              "correct": "Correct. 6x - x leaves 5x.",
+              "incorrect": "After distributing, remember to combine 6x and -x."
+            }
+          }
+        ]
+      },
+      "misconceptions": [
+        {
+          "id": "alg1-misconception-partial-distribution",
+          "description": "Learner multiplies only the variable term and forgets to distribute to the constant.",
+          "remediation": {
+            "type": "worked_example",
+            "targetId": "alg1-expressions-simplifying",
+            "message": "Use arrows from the outside factor to every term inside the parentheses."
+          }
+        }
+      ],
+      "sourceReferences": [
+        {
+          "title": "Project seed plan",
+          "note": "Deterministic symbolic answer checking is a high-leverage Algebra 1 improvement."
+        }
+      ]
+    }
+  ]
+}

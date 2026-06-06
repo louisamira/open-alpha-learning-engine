@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Open Alpha Learning Engine</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/">Open Alpha</a>
+      <nav aria-label="Tracks" id="trackNav"></nav>
+    </header>
+
+    <main class="layout">
+      <aside class="rail">
+        <div class="rail-title">Graph</div>
+        <ol id="conceptList" class="concept-list"></ol>
+      </aside>
+
+      <article class="content">
+        <section class="intro">
+          <p class="kicker" id="trackName"></p>
+          <h1 id="conceptTitle">Loading</h1>
+          <p id="conceptSummary" class="summary"></p>
+        </section>
+
+        <section class="essay" id="essaySection" hidden>
+          <h2 id="essayTitle"></h2>
+          <div class="essay-grid">
+            <p id="essayPlain"></p>
+            <p id="essayHistory"></p>
+            <p id="essaySocial"></p>
+            <p id="essayCare"></p>
+          </div>
+        </section>
+
+        <section class="objectives">
+          <h2>Objectives</h2>
+          <ul id="objectives"></ul>
+        </section>
+
+        <section class="practice">
+          <div class="practice-head">
+            <h2>Practice</h2>
+            <select id="practiceSelect" aria-label="Practice item"></select>
+          </div>
+          <p id="practicePrompt" class="prompt"></p>
+          <div id="answerHost"></div>
+          <div class="actions">
+            <button id="checkAnswer" type="button">Check</button>
+            <button id="useSample" type="button">Sample</button>
+          </div>
+          <output id="result" class="result"></output>
+        </section>
+
+        <section class="mastery">
+          <h2>Mastery Evidence</h2>
+          <ul id="masteryEvidence"></ul>
+        </section>
+      </article>
+    </main>
+
+    <script type="module" src="/dist/src/ui/app.js"></script>
+  </body>
+</html>

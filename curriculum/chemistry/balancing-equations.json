@@ -1,0 +1,212 @@
+{
+  "schemaVersion": "0.1",
+  "track": {
+    "id": "chemistry",
+    "title": "Chemistry",
+    "summary": "A conceptual and quantitative path for understanding matter, atoms, compounds, and reactions."
+  },
+  "orientationEssays": [
+    {
+      "id": "essay-chemistry-track",
+      "scope": "track",
+      "targetId": "chemistry",
+      "title": "What is Chemistry?",
+      "readingMinutes": 4,
+      "plainLanguageSummary": "Chemistry is the study of what things are made of and how they change. It helps you see matter as patterns of particles and transformations.",
+      "historicalOrigin": "Chemistry began in older practices such as fire, cooking, dyes, metals, medicines, fermentation, glass, and pottery. Measurement later transformed recipes into modern science.",
+      "socialImportance": "Chemistry sits underneath food, medicine, climate, energy, batteries, materials, agriculture, and pollution. It affects what societies can make and repair.",
+      "whyLearnersCare": "Chemistry gives everyday changes a deeper explanation: bread rising, iron rusting, fuel burning, medicine dissolving, or batteries powering a phone.",
+      "commonObjections": [
+        "Learners may think formulas are arbitrary symbols disconnected from visible reality.",
+        "Learners may expect atoms to disappear during reactions instead of rearranging."
+      ],
+      "safelyIgnoreForNow": [
+        "Quantum orbital theory",
+        "Thermodynamic derivations"
+      ],
+      "deeperPaths": [
+        "Study atomic structure and bonding to understand why reactions happen.",
+        "Connect conservation of mass to stoichiometry and laboratory measurement."
+      ],
+      "sourceNotes": [
+        "Seeded from the project plan orientation requirements and introductory chemistry scope."
+      ]
+    }
+  ],
+  "concepts": [
+    {
+      "id": "chem-conservation-of-mass",
+      "trackId": "chemistry",
+      "title": "Conservation of Mass in Reactions",
+      "summary": "Chemical reactions rearrange atoms; they do not create or destroy atoms.",
+      "level": 9,
+      "prerequisites": [],
+      "objectives": [
+        "Explain why both sides of a chemical equation must contain the same number of each atom."
+      ],
+      "orientationEssayIds": ["essay-chemistry-track"],
+      "diagnostics": [
+        {
+          "id": "diag-conservation-1",
+          "prompt": "Balance: H2 + O2 -> H2O",
+          "checker": {
+            "kind": "chemistry.equation_balance",
+            "skeletonEquation": "H2 + O2 -> H2O",
+            "sampleCorrect": "2H2 + O2 -> 2H2O",
+            "sampleIncorrect": "H2 + O2 -> H2O"
+          },
+          "misconceptionIds": ["chem-misconception-atoms-disappear"]
+        }
+      ],
+      "practice": [
+        {
+          "id": "practice-conservation-1",
+          "prompt": "Balance: N2 + H2 -> NH3",
+          "checker": {
+            "kind": "chemistry.equation_balance",
+            "skeletonEquation": "N2 + H2 -> NH3",
+            "sampleCorrect": "N2 + 3H2 -> 2NH3",
+            "sampleIncorrect": "N2 + H2 -> NH3"
+          },
+          "hints": [
+            "Start with nitrogen, then adjust hydrogen."
+          ],
+          "feedback": {
+            "correct": "Correct. Both sides have 2 nitrogen atoms and 6 hydrogen atoms.",
+            "incorrect": "Count each atom on both sides. The same element must have the same total count."
+          }
+        }
+      ],
+      "masteryCheck": {
+        "id": "mastery-conservation-of-mass",
+        "passingThreshold": 0.8,
+        "evidenceRequired": [
+          "Balances an equation by preserving atom counts."
+        ],
+        "items": [
+          {
+            "id": "mastery-conservation-1",
+            "prompt": "Balance: H2 + Cl2 -> HCl",
+            "checker": {
+              "kind": "chemistry.equation_balance",
+              "skeletonEquation": "H2 + Cl2 -> HCl",
+              "sampleCorrect": "H2 + Cl2 -> 2HCl",
+              "sampleIncorrect": "H2 + Cl2 -> HCl"
+            },
+            "hints": [
+              "There are two hydrogen atoms and two chlorine atoms on the left."
+            ],
+            "feedback": {
+              "correct": "Correct. The coefficient 2 in front of HCl balances both atoms.",
+              "incorrect": "Count hydrogen and chlorine separately on each side."
+            }
+          }
+        ]
+      },
+      "misconceptions": [
+        {
+          "id": "chem-misconception-atoms-disappear",
+          "description": "Learner treats a chemical reaction as if atoms can vanish instead of rearranging.",
+          "remediation": {
+            "type": "alternate_explanation",
+            "targetId": "chem-conservation-of-mass",
+            "message": "Represent atoms as tokens and move them from reactants into products without losing any tokens."
+          }
+        }
+      ],
+      "sourceReferences": [
+        {
+          "title": "Project seed plan",
+          "note": "Chemistry vertical slice starts from conservation and balancing equations."
+        }
+      ]
+    },
+    {
+      "id": "chem-balancing-equations",
+      "trackId": "chemistry",
+      "title": "Balancing Chemical Equations",
+      "summary": "Use coefficients to make each element count match on both sides of a reaction.",
+      "level": 9,
+      "prerequisites": ["chem-conservation-of-mass"],
+      "objectives": [
+        "Balance a chemical equation by changing coefficients, not subscripts."
+      ],
+      "orientationEssayIds": ["essay-chemistry-track"],
+      "diagnostics": [
+        {
+          "id": "diag-balancing-1",
+          "prompt": "Balance: Fe + O2 -> Fe2O3",
+          "checker": {
+            "kind": "chemistry.equation_balance",
+            "skeletonEquation": "Fe + O2 -> Fe2O3",
+            "sampleCorrect": "4Fe + 3O2 -> 2Fe2O3",
+            "sampleIncorrect": "2Fe + O2 -> Fe2O3"
+          },
+          "misconceptionIds": ["chem-misconception-change-subscripts"]
+        }
+      ],
+      "practice": [
+        {
+          "id": "practice-balancing-1",
+          "prompt": "Balance: CH4 + O2 -> CO2 + H2O",
+          "checker": {
+            "kind": "chemistry.equation_balance",
+            "skeletonEquation": "CH4 + O2 -> CO2 + H2O",
+            "sampleCorrect": "CH4 + 2O2 -> CO2 + 2H2O",
+            "sampleIncorrect": "CH4 + O2 -> CO2 + H2O"
+          },
+          "hints": [
+            "Balance carbon, then hydrogen, then oxygen."
+          ],
+          "feedback": {
+            "correct": "Correct. The equation has 1 C, 4 H, and 4 O atoms on each side.",
+            "incorrect": "Check oxygen last after carbon and hydrogen are balanced."
+          }
+        }
+      ],
+      "masteryCheck": {
+        "id": "mastery-balancing-equations",
+        "passingThreshold": 0.8,
+        "evidenceRequired": [
+          "Balances multi-element equations using coefficients only."
+        ],
+        "items": [
+          {
+            "id": "mastery-balancing-1",
+            "prompt": "Balance: Al + O2 -> Al2O3",
+            "checker": {
+              "kind": "chemistry.equation_balance",
+              "skeletonEquation": "Al + O2 -> Al2O3",
+              "sampleCorrect": "4Al + 3O2 -> 2Al2O3",
+              "sampleIncorrect": "2Al + O2 -> Al2O3"
+            },
+            "hints": [
+              "Use an even number of oxygen atoms in Al2O3 products."
+            ],
+            "feedback": {
+              "correct": "Correct. Four aluminum atoms and six oxygen atoms appear on each side.",
+              "incorrect": "Keep the formulas the same and change only coefficients."
+            }
+          }
+        ]
+      },
+      "misconceptions": [
+        {
+          "id": "chem-misconception-change-subscripts",
+          "description": "Learner changes subscripts inside formulas instead of changing coefficients.",
+          "remediation": {
+            "type": "extra_practice",
+            "targetId": "chem-balancing-equations",
+            "message": "Practice keeping each compound formula fixed while only adding whole-number coefficients."
+          }
+        }
+      ],
+      "sourceReferences": [
+        {
+          "title": "Project seed plan",
+          "note": "Equation balancing should use a deterministic checker."
+        }
+      ]
+    }
+  ]
+}

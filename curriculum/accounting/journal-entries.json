@@ -1,0 +1,417 @@
+{
+  "schemaVersion": "0.1",
+  "track": {
+    "id": "accounting",
+    "title": "Accounting",
+    "summary": "A practical path for understanding records, trust, debits, credits, and financial statements."
+  },
+  "orientationEssays": [
+    {
+      "id": "essay-accounting-track",
+      "scope": "track",
+      "targetId": "accounting",
+      "title": "What is Accounting?",
+      "readingMinutes": 4,
+      "plainLanguageSummary": "Accounting is a social technology for trust. It turns messy economic activity into records that people can inspect, compare, and use for decisions.",
+      "historicalOrigin": "Long before modern companies, people tracked grain, taxes, temple stores, loans, shipments, and household resources. Double-entry bookkeeping later made records more reliable.",
+      "socialImportance": "Money without records becomes rumor. Businesses, governments, nonprofits, investors, and families all need shared evidence about what happened.",
+      "whyLearnersCare": "Accounting helps you answer practical questions: what do I own, what do I owe, did I make money, and what is true enough to act on?",
+      "commonObjections": [
+        "Learners often think debits mean bad and credits mean good.",
+        "Learners may confuse profit with cash in the bank."
+      ],
+      "safelyIgnoreForNow": [
+        "Complex tax rules",
+        "Public-company reporting footnotes"
+      ],
+      "deeperPaths": [
+        "Build books for a tiny fictional company and watch statements update.",
+        "Study how accrual accounting separates earning revenue from receiving cash."
+      ],
+      "sourceNotes": [
+        "Seeded from the project plan orientation requirements and initial accounting scope."
+      ]
+    }
+  ],
+  "concepts": [
+    {
+      "id": "acct-accounting-equation",
+      "trackId": "accounting",
+      "title": "The Accounting Equation",
+      "summary": "Assets equal liabilities plus equity, and every transaction keeps that equation balanced.",
+      "level": 13,
+      "prerequisites": [],
+      "objectives": [
+        "Classify a simple transaction by its effect on assets, liabilities, and equity."
+      ],
+      "orientationEssayIds": ["essay-accounting-track"],
+      "diagnostics": [
+        {
+          "id": "diag-accounting-equation-1",
+          "prompt": "Owner invests $500 cash into a business. Record the journal entry.",
+          "checker": {
+            "kind": "accounting.journal_entry",
+            "transaction": "Owner invests $500 cash into the business.",
+            "expectedLines": [
+              {
+                "account": "Cash",
+                "side": "debit",
+                "amount": 500
+              },
+              {
+                "account": "Owner's Capital",
+                "side": "credit",
+                "amount": 500
+              }
+            ],
+            "sampleCorrect": [
+              {
+                "account": "Cash",
+                "side": "debit",
+                "amount": 500
+              },
+              {
+                "account": "Owner's Capital",
+                "side": "credit",
+                "amount": 500
+              }
+            ],
+            "sampleIncorrect": [
+              {
+                "account": "Cash",
+                "side": "debit",
+                "amount": 500
+              },
+              {
+                "account": "Revenue",
+                "side": "credit",
+                "amount": 500
+              }
+            ]
+          },
+          "misconceptionIds": ["acct-misconception-owner-investment-revenue"]
+        }
+      ],
+      "practice": [
+        {
+          "id": "practice-accounting-equation-1",
+          "prompt": "Business borrows $1,000 cash from a bank. Record the journal entry.",
+          "checker": {
+            "kind": "accounting.journal_entry",
+            "transaction": "Business borrows $1,000 cash from a bank.",
+            "expectedLines": [
+              {
+                "account": "Cash",
+                "side": "debit",
+                "amount": 1000
+              },
+              {
+                "account": "Loan Payable",
+                "side": "credit",
+                "amount": 1000
+              }
+            ],
+            "sampleCorrect": [
+              {
+                "account": "Cash",
+                "side": "debit",
+                "amount": 1000
+              },
+              {
+                "account": "Loan Payable",
+                "side": "credit",
+                "amount": 1000
+              }
+            ],
+            "sampleIncorrect": [
+              {
+                "account": "Cash",
+                "side": "debit",
+                "amount": 1000
+              },
+              {
+                "account": "Revenue",
+                "side": "credit",
+                "amount": 1000
+              }
+            ]
+          },
+          "hints": [
+            "Cash increases, and the business now owes the bank."
+          ],
+          "feedback": {
+            "correct": "Correct. Cash increases and a liability increases.",
+            "incorrect": "Borrowed money is a liability, not revenue."
+          }
+        }
+      ],
+      "masteryCheck": {
+        "id": "mastery-accounting-equation",
+        "passingThreshold": 0.8,
+        "evidenceRequired": [
+          "Records a balanced transaction that preserves Assets = Liabilities + Equity."
+        ],
+        "items": [
+          {
+            "id": "mastery-accounting-equation-1",
+            "prompt": "Owner invests $300 cash into a business. Record the journal entry.",
+            "checker": {
+              "kind": "accounting.journal_entry",
+              "transaction": "Owner invests $300 cash into the business.",
+              "expectedLines": [
+                {
+                  "account": "Cash",
+                  "side": "debit",
+                  "amount": 300
+                },
+                {
+                  "account": "Owner's Capital",
+                  "side": "credit",
+                  "amount": 300
+                }
+              ],
+              "sampleCorrect": [
+                {
+                  "account": "Cash",
+                  "side": "debit",
+                  "amount": 300
+                },
+                {
+                  "account": "Owner's Capital",
+                  "side": "credit",
+                  "amount": 300
+                }
+              ],
+              "sampleIncorrect": [
+                {
+                  "account": "Cash",
+                  "side": "debit",
+                  "amount": 300
+                },
+                {
+                  "account": "Sales Revenue",
+                  "side": "credit",
+                  "amount": 300
+                }
+              ]
+            },
+            "hints": [
+              "Owner investments increase equity, not revenue."
+            ],
+            "feedback": {
+              "correct": "Correct. The entry increases assets and equity.",
+              "incorrect": "Owner capital is an equity account."
+            }
+          }
+        ]
+      },
+      "misconceptions": [
+        {
+          "id": "acct-misconception-owner-investment-revenue",
+          "description": "Learner records owner investment as revenue instead of equity.",
+          "remediation": {
+            "type": "alternate_explanation",
+            "targetId": "acct-accounting-equation",
+            "message": "Separate money from owners from money earned from customers."
+          }
+        }
+      ],
+      "sourceReferences": [
+        {
+          "title": "Project seed plan",
+          "note": "Accounting starts with the accounting equation and practical journal entries."
+        }
+      ]
+    },
+    {
+      "id": "acct-journal-entries",
+      "trackId": "accounting",
+      "title": "Journal Entries",
+      "summary": "Journal entries record transactions with equal debits and credits across named accounts.",
+      "level": 14,
+      "prerequisites": ["acct-accounting-equation"],
+      "objectives": [
+        "Record a simple transaction as a balanced debit and credit journal entry."
+      ],
+      "orientationEssayIds": ["essay-accounting-track"],
+      "diagnostics": [
+        {
+          "id": "diag-journal-entry-1",
+          "prompt": "Business pays $200 cash for supplies. Record the journal entry.",
+          "checker": {
+            "kind": "accounting.journal_entry",
+            "transaction": "Business pays $200 cash for supplies.",
+            "expectedLines": [
+              {
+                "account": "Supplies",
+                "side": "debit",
+                "amount": 200
+              },
+              {
+                "account": "Cash",
+                "side": "credit",
+                "amount": 200
+              }
+            ],
+            "sampleCorrect": [
+              {
+                "account": "Supplies",
+                "side": "debit",
+                "amount": 200
+              },
+              {
+                "account": "Cash",
+                "side": "credit",
+                "amount": 200
+              }
+            ],
+            "sampleIncorrect": [
+              {
+                "account": "Supplies",
+                "side": "debit",
+                "amount": 200
+              },
+              {
+                "account": "Cash",
+                "side": "credit",
+                "amount": 150
+              }
+            ]
+          },
+          "misconceptionIds": ["acct-misconception-debits-credits-must-balance"]
+        }
+      ],
+      "practice": [
+        {
+          "id": "practice-journal-entry-1",
+          "prompt": "Business earns $750 cash from services. Record the journal entry.",
+          "checker": {
+            "kind": "accounting.journal_entry",
+            "transaction": "Business earns $750 cash from services.",
+            "expectedLines": [
+              {
+                "account": "Cash",
+                "side": "debit",
+                "amount": 750
+              },
+              {
+                "account": "Service Revenue",
+                "side": "credit",
+                "amount": 750
+              }
+            ],
+            "sampleCorrect": [
+              {
+                "account": "Cash",
+                "side": "debit",
+                "amount": 750
+              },
+              {
+                "account": "Service Revenue",
+                "side": "credit",
+                "amount": 750
+              }
+            ],
+            "sampleIncorrect": [
+              {
+                "account": "Cash",
+                "side": "credit",
+                "amount": 750
+              },
+              {
+                "account": "Service Revenue",
+                "side": "debit",
+                "amount": 750
+              }
+            ]
+          },
+          "hints": [
+            "Cash increases with a debit. Revenue increases with a credit."
+          ],
+          "feedback": {
+            "correct": "Correct. The entry records cash received and revenue earned.",
+            "incorrect": "Check which side increases cash and which side increases revenue."
+          }
+        }
+      ],
+      "masteryCheck": {
+        "id": "mastery-journal-entries",
+        "passingThreshold": 0.8,
+        "evidenceRequired": [
+          "Uses equal debits and credits.",
+          "Places common asset, liability, equity, revenue, and expense accounts on the correct side."
+        ],
+        "items": [
+          {
+            "id": "mastery-journal-entry-1",
+            "prompt": "Business pays $120 cash for rent expense. Record the journal entry.",
+            "checker": {
+              "kind": "accounting.journal_entry",
+              "transaction": "Business pays $120 cash for rent expense.",
+              "expectedLines": [
+                {
+                  "account": "Rent Expense",
+                  "side": "debit",
+                  "amount": 120
+                },
+                {
+                  "account": "Cash",
+                  "side": "credit",
+                  "amount": 120
+                }
+              ],
+              "sampleCorrect": [
+                {
+                  "account": "Rent Expense",
+                  "side": "debit",
+                  "amount": 120
+                },
+                {
+                  "account": "Cash",
+                  "side": "credit",
+                  "amount": 120
+                }
+              ],
+              "sampleIncorrect": [
+                {
+                  "account": "Rent Expense",
+                  "side": "credit",
+                  "amount": 120
+                },
+                {
+                  "account": "Cash",
+                  "side": "debit",
+                  "amount": 120
+                }
+              ]
+            },
+            "hints": [
+              "Expenses increase with debits, and cash decreases with credits."
+            ],
+            "feedback": {
+              "correct": "Correct. Rent expense increases and cash decreases.",
+              "incorrect": "Remember that paying cash credits the cash account."
+            }
+          }
+        ]
+      },
+      "misconceptions": [
+        {
+          "id": "acct-misconception-debits-credits-must-balance",
+          "description": "Learner records unequal debit and credit amounts.",
+          "remediation": {
+            "type": "extra_practice",
+            "targetId": "acct-journal-entries",
+            "message": "Before deciding if the accounts are right, add total debits and total credits."
+          }
+        }
+      ],
+      "sourceReferences": [
+        {
+          "title": "Project seed plan",
+          "note": "Accounting vertical slice requires a deterministic debit and credit balancing checker."
+        }
+      ]
+    }
+  ]
+}

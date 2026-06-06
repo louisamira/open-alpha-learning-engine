@@ -1,0 +1,21 @@
+{
+  "name": "open-alpha-learning-engine",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "description": "Graph-first adaptive learning engine with reviewed curriculum artifacts and deterministic practice checkers.",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "dev": "npm run build && node scripts/serve-site.js",
+    "validate": "tsc && node dist/scripts/validate-curriculum.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.10",
+    "typescript": "^5.5.3"
+  }
+}
